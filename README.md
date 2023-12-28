@@ -10,7 +10,7 @@
 
 ## Resumo
 
-Este repositório contém o trabalho final de curso intitulado "Avaliação de Estratégias de ETC para Microredes CC". O trabalho aborda [breve descrição do tema do trabalho]. O objetivo principal é [objetivo principal do trabalho].
+Este repositório contém o trabalho final de curso intitulado "Avaliação de Estratégias de ETC para Microredes CC".
 
 ## Estrutura do Repositório
 
