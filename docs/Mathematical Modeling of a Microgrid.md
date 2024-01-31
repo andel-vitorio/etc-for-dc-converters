@@ -9,7 +9,7 @@ Neste guia, abordaremos a modelagem matemática de uma microrrede representada p
 O sistema a seguir foi projetado para simplificar a representação de uma microrrede, visando facilitar cálculos e análises. Composto por um conversor buck e uma CPL configurada como carga de potência constante, representada por uma fonte de corrente, o sistema oferece uma abordagem eficiente para modelar o comportamento da microrrede.
 
 <p align="center">
-  <img src="../assets/imgs/buck_conversor_with_cpl_circuit.svg" alt="Circuito Elétrico do Sistema" style="max-width:100%; height:240px;"/>
+  <img src="../assets/imgs/buck_conversor_with_cpl_circuit.svg" alt="Circuito Elétrico do Sistema" style="max-width:100%; height:260px;"/>
 </p>
 
 No circuito apresentado:
@@ -22,16 +22,15 @@ No circuito apresentado:
 
 ## 3. Formulação das Equações do Circuito
 
-As equações que descrevem o comportamento do sistema podem ser derivadas usando as leis fundamentais da eletricidade. Para isso, consideraremos o circuito em duas situações: chave fechada e aberta.
+As equações que descrevem o comportamento do sistema podem ser derivadas usando as leis fundamentais da eletricidade. O modelo matemático do conversor _buck_ adotado é fundamentado no modelo médio do sistema. Embora os conversores sejam intrinsecamente não-lineares, a prática comum consiste em empregar modelos de pequenos sinais (SSMs) para obter uma representação linearizada em torno do ponto operacional (OP). Para isso, consideraremos o circuito em duas situações: chave fechada e aberta.
 
 ### 3.1 Chave Fechada
 
 Na situação em que a chave está fechada, o circuito é equivalente a um circuito série com uma fonte de tensão, um resistor e uma indutância.
 
-<div style="text-align:center">
-  <img src="../assets/imgs//buck_conversor_with_cpl_circuit_m1_transparent.png" alt="Circuito Elétrico do Sistema" style="max-width: 80%;"/>
-</div>
-<br>
+<p align="center">
+  <img src="../assets/imgs/buck_conversor_with_cpl_circuit_m1.svg" alt="Circuito Elétrico do Sistema" style="max-width:100%; height:260px;"/>
+</p>
 
 As equações que descrevem esse circuito são as seguintes:
 
@@ -50,14 +49,26 @@ $$ C \frac{d}{dt} v_C = i_L - \frac{v_C}{R_C} - \frac{P_{CPL}}{v_C} $$
 
 $$ \frac{d}{dt} v_C = \frac{1}{C} i_L - \frac{1}{C R_C} v_C - \frac{1}{C v_C} P_{CPL} $$
 
+Logo,
+
+$$
+\begin{equation}
+M_{fechada}: \space
+\tag{3.1} 
+\begin{cases}
+\frac{d}{dt}i_L &= \frac{R_L}{L} i_L - \frac{1}{L} v_C \\ \\
+\frac{d}{dt} v_C &= \frac{1}{C} i_L - \frac{1}{C R_C} v_C - \frac{1}{C v_C} P_{CPL}
+\end{cases}
+\end{equation}
+$$
+
 ### 3.2 Chave Aberta
 
 Na situação em que a chave está aberta, o circuito é desconectado da fonte de tensão.
 
-<div style="text-align:center">
-  <img src="../assets/imgs/buck_conversor_with_cpl_circuit_m2_transparent.png" alt="Circuito Elétrico do Sistema" style="max-width: 80%;"/>
-</div>
-<br>
+<p align="center">
+  <img src="../assets/imgs/buck_conversor_with_cpl_circuit_m2.svg" alt="Circuito Elétrico do Sistema" style="max-width:100%; height:260px;"/>
+</p>
 
 As equações que descrevem esse circuito são as seguintes:
 
@@ -77,12 +88,29 @@ $$ C \frac{d}{dt} v_C = i_L - \frac{v_C}{R_C} - \frac{P_{CPL}}{v_C} $$
 
 $$ \frac{d}{dt} v_C = \frac{1}{C} i_L - \frac{1}{C R_C} v_C - \frac{1}{C v_C} P_{CPL} $$
 
-### 3.3 Modelo Médio do Sistema
-
-O modelo médio do sistema é:
+Logo,
 
 $$
 \begin{equation}
+M_{aberta}: \space
+\tag{3.2} 
+\begin{cases}
+\frac{d}{dt}i_L &= \frac{V_{in}}{L} d - \frac{R_L}{L} i_L - \frac{1}{L} v_C \\ \\
+\frac{d}{dt} v_C &= \frac{1}{C} i_L - \frac{1}{C R_C} v_C - \frac{1}{C v_C} P_{CPL}
+\end{cases}
+\end{equation}
+$$
+
+### 3.3 Modelo Médio do Sistema
+
+Baseado nas equações obtidas anteriormente, o modelo médio do sistema, representado pelas equações diferenciais abaixo, descreve o comportamento do circuito quando a chave está operando continuamente:
+
+<br>
+
+$$
+\begin{equation}
+MMS: \space
+\tag{3.3} 
 \begin{cases}
 \frac{d}{dt}i_L &= \frac{V_{in}}{L} d - \frac{R_L}{L} i_L - \frac{1}{L} v_C \\ \\
 \frac{d}{dt} v_C &= \frac{1}{C} i_L - \frac{1}{C R_C} v_C - \frac{1}{C v_C} P_{CPL}
@@ -94,37 +122,62 @@ $$
 
 ## 4. Modelo do Sistema Transladado
 
-Temos que
+Ao adentrarmos no Modelo do Sistema Transladado, é importante primeiro definir as variáveis de estado e os valores de operação. Essas definições serão usadas para descrever o comportamento do sistema transladado.
 
-1. $P_E = \left( \overline{i_L}, \, \overline{V_C}, \, \overline{d}, \, \overline{P_{CPL}} \right)$
+Dada a condição de operação $P_O = \left( \overline{i_L}, \space \overline{V_C}, \space \overline{d}, \space \overline{P_{CPL}} \right) $, os estados e as entradas do sistema pode ser decompostos em termos fixos e em termos variantes no tempo.
 
-2.
+<br>
+
 $$
+X: \space
 \begin{cases}
-  i_L &= \overline{i_L} + \delta i_L \\
-  v_C &= \overline{V_C} + \delta V_C \\
-  d &= \overline{d} + \delta d \\
-  P_{CPL} &= \overline{P_{CPL}} + \delta P_{CPL} \\
+  i_L(t) &= \overline{i_L} + \delta i_L(t) \\
+  v_C(t) &= \overline{V_C} + \delta V_C(t) 
+\end{cases}
+, \space \space \space \space \space
+U: \space
+\begin{cases}
+  d(t) &= \overline{d} + \delta d(t) \\
+  P_{CPL}(t) &= \overline{P_{CPL}} + \delta P_{CPL}(t)
 \end{cases}
 $$
- 
-3.
+
+<br>
+
+Além disto, as derivadas temporais das variáveis de estado também são representadas por:
+
+<br>
+
 $$
+\dot{X}: \space
 \begin{cases}
   \dot{i_L} &= \overline{\dot{i_L}} + \delta \dot{i_L} \\
-  \dot{v_C} &= \overline{\dot{v_C}} + \delta \dot{v_C} \\
+  \dot{v_C} &= \overline{\dot{V_C}} + \delta \dot{V_C} 
 \end{cases}
 $$
 
-Além disto, 
+<br>
 
-$$ f(i_L, \, v_C, \, d, \, P_{CPL}) = \dot{i_L} = - \frac{R_L}{L} i_L - \frac{1}{L} v_C + \frac{V_{in}}{L} d $$
-$$ g(i_L, \, v_C, \, d, \, P_{CPL}) = \dot{v_C}= - \frac{1}{C R_C} v_C + \frac{1}{C} i_L - \frac{1}{C v_C} P_{CPL} $$
+Para a modelagem da dinâmica do sistema, são definidas as seguintes funções a partir da __Equação 3.3__:
 
-$$ f(P_E) = g(P_E) = \overline{\dot{i_L}} = \overline{\dot{v_C}} = 0 $$
+$$
+\begin{cases}
+  f(i_L, \space v_C, \space d, \space P_{CPL}) = \dot{i_L} = - \frac{R_L}{L} i_L - \frac{1}{L} v_C + \frac{V_{in}}{L} d \\
+  g(i_L, \space v_C, \space d, \space P_{CPL}) = \dot{v_C} = - \frac{1}{C R_C} v_C + \frac{1}{C} i_L - \frac{1}{C v_C} P_{CPL}
+\end{cases}
+$$
+
+<br>
+
+Importante notar que, sob condições de operação em regime permanente, as funções no ponto de operação são ambas nulas
+
+$$ f(P_O) = g(P_O) = \overline{\dot{i_L}} = \overline{\dot{v_C}} = 0 $$
+
+Baseado nisto, podemos obter as equações da corrente e tensão do sistema transladado.
 
 ### Equação da Corrente $i_L$
-Temos, 
+
+No ponto de operação, o valor de $f$ é nulo. Portanto,
 
 $$
 f(P_E) = - \frac{R_L}{L} \overline{i_L} - \frac{1}{L} \overline{v_C} + \frac{V_{in}}{L}  \overline{d} = 0
@@ -134,35 +187,61 @@ $$ - R_L \overline{i_L} - \overline{v_C} + V_{in}  \overline{d} = 0 $$
 
 $$ V_{in}  \overline{d} = R_L \overline{i_L} + \overline{v_C} $$
 
-$$ \overline{d} = \frac{R_L}{V_{in}} \overline{i_L} + \frac{\overline{v_C}}{V_{in}} $$
+$$ 
+\begin{equation}
+\tag{4.1.1}
+\overline{d} = \frac{R_L}{V_{in}} \overline{i_L} + \frac{\overline{v_C}}{V_{in}} 
+\end{equation}
+$$
+<br>
 
-
-Baseado nisto, podemos simplificar a equação $\dot{i_L}$ em,
+Decompondo a equação $\dot{i_L}$ em termos fixos e em termos variantes no tempo, obtemos,
 
 $$ \dot{i_L} = - \frac{R_L}{L} i_L - \frac{1}{L} v_C + \frac{V_{in}}{L} d $$
 
 $$ \overline{\dot{i_L}} + \delta \dot{i_L} = - \frac{R_L}{L} \left(\overline{i_L} + \delta i_L\right) - \frac{1}{L} \left(\overline{v_C} + \delta v_C\right) + \frac{V_{in}}{L} \left(\overline{d} + \delta d\right) $$
 
-$$ \delta \dot{i_L} = - \frac{R_L}{L} \overline{i_L} - \frac{R_L}{L} \delta i_L - \frac{1}{L} \overline{v_C} - \frac{1}{L} \delta v_C + \frac{V_{in}}{L} \overline{d} + \frac{V_{in}}{L} \delta d $$
+$$ 
+\begin{equation}
+\tag{4.1.2}
+\delta \dot{i_L} = - \frac{R_L}{L} \overline{i_L} - \frac{R_L}{L} \delta i_L - \frac{1}{L} \overline{v_C} - \frac{1}{L} \delta v_C + \frac{V_{in}}{L} \overline{d} + \frac{V_{in}}{L} \delta d 
+\end{equation}
+$$
+<br>
 
-$$ \delta \dot{i_L} = - \frac{R_L}{L} \overline{i_L} - \frac{R_L}{L} \delta i_L - \frac{1}{L} \overline{v_C} - \frac{1}{L} \delta v_C + \frac{V_{in}}{L} \left( \frac{R_L}{V_{in}} \overline{i_L} + \frac{\overline{v_C}}{V_{in}}\right) + \frac{V_{in}}{L} \delta d $$
+Substituindo a __Equação 4.1.1__ em __Equação 4.1.2__, podemos obter a seguinte equação da corrente: 
+
+$$
+\delta \dot{i_L} = - \frac{R_L}{L} \overline{i_L} - \frac{R_L}{L} \delta i_L - \frac{1}{L} \overline{v_C} - \frac{1}{L} \delta v_C + \frac{V_{in}}{L} \left( \frac{R_L}{V_{in}} \overline{i_L} + \frac{\overline{v_C}}{V_{in}}\right) + \frac{V_{in}}{L} \delta d
+$$
+
 
 $$ \delta \dot{i_L} = - \frac{R_L}{L} \overline{i_L} - \frac{R_L}{L} \delta i_L - \frac{1}{L} \overline{v_C} - \frac{1}{L} \delta v_C +  \frac{R_L}{L} \overline{i_L} + \frac{1}{L} \overline{v_C} + \frac{V_{in}}{L} \delta d $$
 
-$$ \delta \dot{i_L} = - \frac{R_L}{L} \delta i_L - \frac{1}{L} \delta v_C  + \frac{V_{in}}{L} \delta d $$
+$$ 
+\begin{equation}
+\tag{4.1.3}
+\delta \dot{i_L} = - \frac{R_L}{L} \delta i_L - \frac{1}{L} \delta v_C  + \frac{V_{in}}{L} \delta d
+\end{equation}
+$$
 
 ### Equação da Tensão $v_C$
 
-Temos, 
+No ponto de operação, o valor de $g$ também é nulo. Portanto,
 
 $$ g(P_E) = - \frac{1}{C R_C} \overline{v_C} + \frac{1}{C} \overline{i_L} - \frac{1}{C \overline{v_C}} \overline{P_{CPL}} = 0 $$
 
 $$ - \frac{1}{R_C} \overline{v_C} + \overline{i_L} - \frac{1}{\overline{v_C}} \overline{P_{CPL}} = 0 $$
 
-$$  \overline{i_L} = \frac{1}{R_C} \overline{v_C} + \frac{1}{\overline{v_C}} \overline{P_{CPL}} $$
+$$ 
+\begin{equation}
+\tag{4.2.1}
+\overline{i_L} = \frac{1}{R_C} \overline{v_C} + \frac{1}{\overline{v_C}} \overline{P_{CPL}}
+\end{equation}
+$$
+<br>
 
-
-Baseado nisto, podemos simplificar a equação $\dot{v_C}$ em,
+Decompondo a equação $\dot{v_C}$ em termos fixos e em termos variantes no tempo, obtemos,
 
 $$ 
 \dot v_C = - \frac{1}{C R_C} v_C + \frac{1}{C} i_L - \frac{1}{C v_C} P_{CPL} 
@@ -173,8 +252,14 @@ $$
 $$
 
 $$ 
+\begin{equation}
+\tag{4.2.2}
 \delta \dot{v_C} = - \frac{1}{C R_C} \overline{v_C} - \frac{1}{C R_C} \delta v_C + \frac{1}{C} \overline{i_L} + \frac{1}{C}  \delta i_L - \frac{1}{C \left(\overline{v_C} + \delta v_C\right)} \left(\overline{P_{CPL}} + \delta P_{CPL}\right) 
+\end{equation}
 $$
+<br>
+
+Substituindo a __Equação 4.2.1__ em __Equação 4.2.2__, podemos obter a seguinte equação da tensão: 
 
 $$ 
 \delta \dot{v_C} = - \frac{1}{C R_C} \overline{v_C} - \frac{1}{C R_C} \delta v_C + \frac{1}{C} \left(\frac{1}{R_C} \overline{v_C} + \frac{1}{\overline{v_C}} \overline{P_{CPL}}\right) + \frac{1}{C}  \delta i_L - \frac{1}{C \left(\overline{v_C} + \delta v_C\right)} \left(\overline{P_{CPL}} + \delta P_{CPL}\right) 
@@ -185,8 +270,31 @@ $$
 $$
 
 $$ 
+\begin{equation}
+\tag{4.2.3}
 \delta \dot{v_C} = - \frac{1}{C R_C} \delta v_C  + \frac{1}{C}  \delta i_L + \frac{\overline{P_{CPL}} \delta v_C - \overline{v_C} \delta P_{CPL}}{C \overline{v_C} \left(\overline{v_C} + \delta v_C\right)} 
+\end{equation}
 $$
+<br>
+
+### Sistema Transladado
+
+Portanto, o sistema transladado, considerando o ponto de operação $P_O = \left( \overline{i_L}, \space \overline{V_C}, \space \overline{d}, \space \overline{P_{CPL}} \right) $, é:
+
+<br>
+
+$$
+\begin{equation}
+M_{transladado}: \space
+\tag{4.3} 
+\begin{cases}
+\delta \dot{i_L} &= - \displaystyle\frac{R_L}{L} \delta i_L - \displaystyle\frac{1}{L} \delta v_C  + \displaystyle\frac{V_{in}}{L} \delta d
+\\ \\
+\delta \dot{v_C} &= - \displaystyle\frac{1}{C R_C} \delta v_C  + \displaystyle\frac{1}{C}  \delta i_L + \displaystyle\frac{\overline{P_{CPL}} \delta v_C - \overline{v_C} \delta P_{CPL}}{C \overline{v_C} \left(\overline{v_C} + \delta v_C\right)} 
+\end{cases}
+\end{equation}
+$$
+<br>
 
 ## 5. Linearização do Sistema
 
