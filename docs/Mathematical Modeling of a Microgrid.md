@@ -1,10 +1,67 @@
 # Modelagem Matemática de uma Microrrede
 
+<div id='sumario'/>
+
+## Sumário
+
+<ol style="counter-reset: item; padding-left: 0px;">
+  <li style="display: block; list-style: none;">
+    <a href="#section-1">Introdução</a>
+  </li>
+  <li style="display: block; list-style: none;">
+    <a href="#section-2">Descrição do Sistema e Circuito</a>
+  </li>
+  <li style="display: block; list-style: none;">
+    <a href="#section-3">Formulação das Equações do Circuito</a>
+    <ol class="sub-list" style="padding-left: 16px; list-style: none;">
+      <li style="display: block;">
+        <a href="#subsection-3-1">Chave Fechada</a>
+      </li>
+      <li style="display: block;">
+        <a href="#subsection-3-2">Chave Aberta</a>
+      </li>
+      <li style="display: block;">
+        <a href="#subsection-3-3">Modelo Médio do Sistema</a>
+      </li>
+    </ol>
+  </li>
+  <li style="display: block; list-style: none;">
+    <a href="#section-4">Modelo do Sistema Transladado</a>
+    <ol class="sub-list" style="padding-left: 16px; list-style: none;">
+      <li style="display: block;">
+        <a href="#subsection-4-1">Equação da Corrente <span style="font-style: italic; font-size: 1.2em;">i<sub>L</sub></span></a>
+      </li>
+      <li style="display: block;">
+        <a href="#subsection-4-2">Equação da Tensão <span style="font-style: italic; font-size: 1.2em;">v<sub>C</sub></span></a>
+      </li>
+      <li style="display: block;">
+        <a href="#subsection-4-3">Sistema Transladado</a>
+      </li>
+    </ol>
+  </li>
+  <li style="display: block; list-style: none;">
+    <a href="#section-5">Modelo do Sistema Linearizado</a>
+  </li>
+</ol>
+
+
+<div id='section-1'/>
+
 ## 1. Introdução
+
+<h6 style="text-decoration: none;">
+ <a href="#sumario" style="color: #ffffff67; text-decoration: none;">Voltar ao Sumário</a>
+</h6>
 
 Neste guia, abordaremos a modelagem matemática de uma microrrede representada por um conversor buck com uma CPL, carga de potência constante. O conversor buck é um tipo de conversor de potência que converte tensão contínua de alta tensão para tensão contínua de baixa tensão. A CPL é um tipo de carga que requer uma potência constante, independentemente da tensão de entrada.
 
+<div id='section-2'/>
+
 ## 2. Descrição do Sistema e Circuito
+
+<h6 style="text-decoration: none;">
+ <a href="#sumario" style="color: #ffffff67; text-decoration: none;">Voltar ao Sumário</a>
+</h6>
 
 O sistema a seguir foi projetado para simplificar a representação de uma microrrede, visando facilitar cálculos e análises. Composto por um conversor buck e uma CPL configurada como carga de potência constante, representada por uma fonte de corrente, o sistema oferece uma abordagem eficiente para modelar o comportamento da microrrede.
 
@@ -20,9 +77,17 @@ No circuito apresentado:
 - $V_{in}$: Tensão de entrada.
 - $V_{out}$: Tensão de entrada.
 
+<div id='section-3'/>
+
 ## 3. Formulação das Equações do Circuito
 
+<h6 style="text-decoration: none;">
+ <a href="#sumario" style="color: #ffffff67; text-decoration: none;">Voltar ao Sumário</a>
+</h6>
+
 As equações que descrevem o comportamento do sistema podem ser derivadas usando as leis fundamentais da eletricidade. O modelo matemático do conversor _buck_ adotado é fundamentado no modelo médio do sistema. Embora os conversores sejam intrinsecamente não-lineares, a prática comum consiste em empregar modelos de pequenos sinais (SSMs) para obter uma representação linearizada em torno do ponto operacional (OP). Para isso, consideraremos o circuito em duas situações: chave fechada e aberta.
+
+<div id='subsection-3-1'/>
 
 ### 3.1 Chave Fechada
 
@@ -61,6 +126,8 @@ M_{fechada}: \space
 \end{cases}
 \end{equation}
 $$
+
+<div id='subsection-3-2'/>
 
 ### 3.2 Chave Aberta
 
@@ -101,6 +168,8 @@ M_{aberta}: \space
 \end{equation}
 $$
 
+<div id='subsection-3-3'/>
+
 ### 3.3 Modelo Médio do Sistema
 
 Baseado nas equações obtidas anteriormente, o modelo médio do sistema, representado pelas equações diferenciais abaixo, descreve o comportamento do circuito quando a chave está operando continuamente:
@@ -120,7 +189,13 @@ $$
 
 <br>
 
+<div id='section-4'/>
+
 ## 4. Modelo do Sistema Transladado
+
+<h6 style="text-decoration: none;">
+ <a href="#sumario" style="color: #ffffff67; text-decoration: none;">Voltar ao Sumário</a>
+</h6>
 
 Ao adentrarmos no Modelo do Sistema Transladado, é importante primeiro definir as variáveis de estado e os valores de operação. Essas definições serão usadas para descrever o comportamento do sistema transladado.
 
@@ -175,6 +250,8 @@ $$ f(P_O) = g(P_O) = \overline{\dot{i_L}} = \overline{\dot{v_C}} = 0 $$
 
 Baseado nisto, podemos obter as equações da corrente e tensão do sistema transladado.
 
+<div id='subsection-4-1'/>
+
 ### Equação da Corrente $i_L$
 
 No ponto de operação, o valor de $f$ é nulo. Portanto,
@@ -224,6 +301,8 @@ $$
 \delta \dot{i_L} = - \frac{R_L}{L} \delta i_L - \frac{1}{L} \delta v_C  + \frac{V_{in}}{L} \delta d
 \end{equation}
 $$
+
+<div id='subsection-4-2'/>
 
 ### Equação da Tensão $v_C$
 
@@ -277,6 +356,8 @@ $$
 $$
 <br>
 
+<div id='subsection-4-3'/>
+
 ### Sistema Transladado
 
 Portanto, o sistema transladado, considerando o ponto de operação $P_O = \left( \overline{i_L}, \space \overline{V_C}, \space \overline{d}, \space \overline{P_{CPL}} \right) $, é:
@@ -296,9 +377,15 @@ M_{transladado}: \space
 $$
 <br>
 
-## 5. Linearização do Sistema
+<div id='section-5'/>
 
-A seguir é apresentado os parâmetros para a linearização do sistema:
+## 5. Modelo do Sistema Linearizado
+
+<h6 style="text-decoration: none;">
+ <a href="#sumario" style="color: #ffffff67; text-decoration: none;">Voltar ao Sumário</a>
+</h6>
+
+O sistema linearizado, derivado a partir do sistema não linear, obtido em na seção 3, em torno dos pontos de operação, é representado por um conjunto de equações diferenciais lineares. Essas equações descrevem as variações no tempo das grandezas $\delta i_L$ e $\delta v_C$, que representam as alterações na corrente do indutor e na tensão do capacitor, respectivamente.
 
 ### Tabela de estados, entradas, parâmetros, ponto de operação e saída
 
