@@ -235,6 +235,8 @@ $$
 
 Para a modelagem da dinâmica do sistema, são definidas as seguintes funções a partir da __Equação 3.3__:
 
+<br>
+
 $$
 \begin{cases}
   f(i_L, \space v_C, \space d, \space P_{CPL}) = \dot{i_L} = - \frac{R_L}{L} i_L - \frac{1}{L} v_C + \frac{V_{in}}{L} d \\
@@ -274,6 +276,8 @@ $$
 
 Decompondo a equação $\dot{i_L}$ em termos fixos e em termos variantes no tempo, obtemos,
 
+<br>
+
 $$ \dot{i_L} = - \frac{R_L}{L} i_L - \frac{1}{L} v_C + \frac{V_{in}}{L} d $$
 
 $$ \overline{\dot{i_L}} + \delta \dot{i_L} = - \frac{R_L}{L} \left(\overline{i_L} + \delta i_L\right) - \frac{1}{L} \left(\overline{v_C} + \delta v_C\right) + \frac{V_{in}}{L} \left(\overline{d} + \delta d\right) $$
@@ -284,9 +288,12 @@ $$
 \delta \dot{i_L} = - \frac{R_L}{L} \overline{i_L} - \frac{R_L}{L} \delta i_L - \frac{1}{L} \overline{v_C} - \frac{1}{L} \delta v_C + \frac{V_{in}}{L} \overline{d} + \frac{V_{in}}{L} \delta d 
 \end{equation}
 $$
+
 <br>
 
 Substituindo a __Equação 4.1.1__ em __Equação 4.1.2__, podemos obter a seguinte equação da corrente: 
+
+<br>
 
 $$
 \delta \dot{i_L} = - \frac{R_L}{L} \overline{i_L} - \frac{R_L}{L} \delta i_L - \frac{1}{L} \overline{v_C} - \frac{1}{L} \delta v_C + \frac{V_{in}}{L} \left( \frac{R_L}{V_{in}} \overline{i_L} + \frac{\overline{v_C}}{V_{in}}\right) + \frac{V_{in}}{L} \delta d
@@ -302,11 +309,15 @@ $$
 \end{equation}
 $$
 
+<br>
+
 <div id='subsection-4-2'/>
 
 ### Equação da Tensão $v_C$
 
 No ponto de operação, o valor de $g$ também é nulo. Portanto,
+
+<br>
 
 $$ g(P_E) = - \frac{1}{C R_C} \overline{v_C} + \frac{1}{C} \overline{i_L} - \frac{1}{C \overline{v_C}} \overline{P_{CPL}} = 0 $$
 
@@ -318,9 +329,12 @@ $$
 \overline{i_L} = \frac{1}{R_C} \overline{v_C} + \frac{1}{\overline{v_C}} \overline{P_{CPL}}
 \end{equation}
 $$
+
 <br>
 
 Decompondo a equação $\dot{v_C}$ em termos fixos e em termos variantes no tempo, obtemos,
+
+<br>
 
 $$ 
 \dot v_C = - \frac{1}{C R_C} v_C + \frac{1}{C} i_L - \frac{1}{C v_C} P_{CPL} 
@@ -336,9 +350,12 @@ $$
 \delta \dot{v_C} = - \frac{1}{C R_C} \overline{v_C} - \frac{1}{C R_C} \delta v_C + \frac{1}{C} \overline{i_L} + \frac{1}{C}  \delta i_L - \frac{1}{C \left(\overline{v_C} + \delta v_C\right)} \left(\overline{P_{CPL}} + \delta P_{CPL}\right) 
 \end{equation}
 $$
+
 <br>
 
 Substituindo a __Equação 4.2.1__ em __Equação 4.2.2__, podemos obter a seguinte equação da tensão: 
+
+<br>
 
 $$ 
 \delta \dot{v_C} = - \frac{1}{C R_C} \overline{v_C} - \frac{1}{C R_C} \delta v_C + \frac{1}{C} \left(\frac{1}{R_C} \overline{v_C} + \frac{1}{\overline{v_C}} \overline{P_{CPL}}\right) + \frac{1}{C}  \delta i_L - \frac{1}{C \left(\overline{v_C} + \delta v_C\right)} \left(\overline{P_{CPL}} + \delta P_{CPL}\right) 
@@ -385,75 +402,82 @@ $$
  <a href="#sumario" style="color: #ffffff67; text-decoration: none;">Voltar ao Sumário</a>
 </h6>
 
-O sistema linearizado, derivado a partir do sistema não linear, obtido em na seção 3, em torno dos pontos de operação, é representado por um conjunto de equações diferenciais lineares. Essas equações descrevem as variações no tempo das grandezas $\delta i_L$ e $\delta v_C$, que representam as alterações na corrente do indutor e na tensão do capacitor, respectivamente.
+O sistema linearizado, derivado a partir do sistema não linear, obtido na <a href="#section-3" style="color: #ffffff67; text-decoration: none;">Seção 3</a>, em torno dos pontos de operação, é representado por um conjunto de equações diferenciais lineares. Essas equações descrevem as variações no tempo das grandezas $\delta i_L$ e $\delta v_C$, que representam as alterações na corrente do indutor e na tensão do capacitor, respectivamente.
 
-### Tabela de estados, entradas, parâmetros, ponto de operação e saída
+Baseado nisto, o sistema linearizado terá a forma:
 
-| **Categoria**         | **Nome**                             | **Definição**                                  |
-| --------------------- | ------------------------------------ | ---------------------------------------------- |
-| **Estados**           | Variação da corrente do indutor      | $\delta i_L(t) = i_L(t) - {i_L}_0$             |
-|                       | Variação da tensão do capacitor      | $\delta v_C(t) = v_C(t) - {v_C}_0$             |
-| **Entradas**          | Variação do duty cycle               | $\delta d(t) = d(t) - d_0$                     |
-|                       | Variação da potência da carga        | $\delta P_{cpl}(t) = P_{cpl}(t) - {P_{cpl}}_0$ |
-| **Parâmetros**        | Tensão de entrada                    | $V_{in}$                                       |
-|                       | Resistência em série com o indutor   | $R_L$                                          |
-|                       | Resistência em paralelo ao capacitor | $R_c$                                          |
-|                       | Indutância                           | $L$                                            |
-|                       | Capacitância                         | $C$                                            |
-| **Ponto de operação** | Corrente do indutor                  | ${i_L}_0$                                      |
-|                       | Tensão do capacitor                  | ${v_C}_0$                                      |
-|                       | Duty cycle                           | ${d}_0$                                        |
-|                       | Potência da carga                    | ${P_{cpl}}_0$                                  |
-| **Saída**             | Variação da Tensão do Capacitor      | $y = \delta v_C$                               |
-
-O sistema linearizado terá a forma:
+<br>
 
 $$
   \begin{cases}
-    \frac{d}{dt} (\delta i_L) &= k_1 \cdot \delta i_L + k_2 \cdot \delta v_C + k_3 \cdot \delta d \\ \\
-    \frac{d}{dt} (\delta v_C) &= k_4 \cdot \delta i_L + k_5 \cdot \delta v_C + k_6 \cdot \delta P_{CPL}
+    \frac{d}{dt} (\delta i_L) &= k_1 \cdot \delta i_L + k_2 \cdot \delta v_C + k_3 \cdot \delta d + k_4 \cdot \delta P_{CPL} \\ \\
+    \frac{d}{dt} (\delta v_C) &= k_5 \cdot \delta i_L + k_6 \cdot \delta v_C + k_7 \cdot \delta d + k_8 \cdot \delta P_{CPL}
   \end{cases}
 $$
 
-Considerando as seguinte relações:
+<br>
 
-$$P_f = (i_L, v_C, d), \space\space {P_f}_0 = ({i_L}_0, {v_C}_0, d_0)$$  
-$$P_g = (i_L, v_C, P_{CPL}), \space\space   {P_g}_0 = ({i_L}_0, {v_C}_0, {P_{CPL}}_0)$$  
-$$f(P_f) = \frac{d}{dt}i_L, \space\space  g(P_g) = \frac{d}{dt}v_C$$
+Considerando as seguintes funções a seguir,
 
-Podemos obter as constante:
+<br>
 
+$$f(P) = \frac{d}{dt}i_L, \space\space\space\space  g(P) = \frac{d}{dt}v_C$$
+
+<br>
+
+onde $P = (i_L, \space v_C, \space d, \space P_{CPL})$, podemos obter os coeficientes $k$ com as seguintes derivadas parciais:
+
+<br>
+  
 $$
-k_1 = \dfrac{\partial f}{\partial i_L} \vert _{P_f = {P_f}_0}, \space \space
-k_2 = \dfrac{\partial f}{\partial v_C} \vert _{P_f = {P_f}_0}, \space \space
-k_3 = \dfrac{\partial f}{\partial d} \vert _{P_f = {P_f}_0}
-$$
-
-$$
-k_4 = \dfrac{\partial g}{\partial i_L} \vert _{P_g = {P_g}_0}, \space \space
-k_5 = \dfrac{\partial g}{\partial v_C} \vert _{P_g = {P_g}_0}, \space \space
-k_6 = \dfrac{\partial g}{\partial P_{CPL}} \vert _{P_g = {P_g}_0}
-$$
-
-Desta forma, os termos são:
-
-$$
-k_1 = - \frac{R_L}{L}, \space\space
-k_2 = - \frac{1}{L}, \space\space
-k_3 = \frac{V_{in}}{L}
+k_1 = \dfrac{\partial f}{\partial i_L} \vert_{P = P_O}, \space \space
+k_2 = \dfrac{\partial f}{\partial v_C} \vert_{P = P_O}, \space \space
+k_3 = \dfrac{\partial f}{\partial d} \vert_{P = P_O}, \space \space
+k_4 = \dfrac{\partial f}{\partial P_{CPL}} \vert_{P = P_O}
 $$
 
 $$
-k_4 = \frac{1}{C}, \space\space
-k_5 = \frac{1}{C}\left(\frac{{P_{CPL}}_0}{{{{v_{C}}_0}^2}} - \frac{1}{R_C}\right), \space\space
-k_6 = - \frac{1}{C {v_C}_0}
+k_5 = \dfrac{\partial g}{\partial i_L} \vert_{P = P_O}, \space \space
+k_6 = \dfrac{\partial g}{\partial v_C} \vert_{P = P_O}, \space \space
+k_7 = \dfrac{\partial g}{\partial d} \vert_{P = P_O}, \space \space
+k_8 = \dfrac{\partial g}{\partial P_{CPL}} \vert_{P = P_O}
 $$
+
+<br>
+
+onde $P_O = (\overline{i_L}, \space \overline{v_C}, \space \overline{d}, \space \overline{P_{CPL}})$, é o ponto de operação definido na <a href="#section-4" style="color: #ffffff67; text-decoration: none;">Seção 4</a>. Desta forma, os termos são:
+
+<br>
+
+$$
+k_1 = - \frac{R_L}{L}, \space\space\space\space
+k_2 = - \frac{1}{L}, \space\space\space\space
+k_3 = \frac{V_{in}}{L} , \space\space\space\space
+k_4 = 0
+$$
+
+$$
+k_5 = \frac{1}{C}, \space\space\space\space
+k_6 = \frac{1}{C}\left(\frac{\overline{P_{CPL}}}{{{\overline{v_{C}}}^2}} - \frac{1}{R_C}\right), \space\space\space\space
+k_7 = 0, \space\space\space\space
+k_8 = - \frac{1}{C \overline{v_C}}
+$$
+
+<br>
 
 Portanto, o sistema linearizado é:
 
+<br>
+
 $$
+\begin{equation}
+\tag{5.1}
   \begin{cases}
-    \frac{d}{dt} (\delta i_L) &= - \frac{R_L}{L} \delta i_L - \frac{1}{L} \delta v_C + \frac{V_{in}}{L} \delta d \\ \\
-    \frac{d}{dt} (\delta v_C) &= \frac{1}{C} \delta i_L + \frac{1}{C}\left(\frac{{P_{CPL}}_0}{{{{v_{C}}_0}^2}} - \frac{1}{R_C}\right) \delta v_C - \frac{1}{C {v_C}_0} \delta P_{CPL}
+    \displaystyle \frac{d}{dt} (\delta i_L) &= \displaystyle - \frac{R_L}{L} \delta i_L - \frac{1}{L} \delta v_C + \frac{V_{in}}{L} \delta d 
+    \\ \\
+    \displaystyle  \frac{d}{dt} (\delta v_C) &= \displaystyle \frac{1}{C} \delta i_L + \frac{1}{C}\left(\frac{\overline{P_{CPL}}}{{\overline{{v_{C}}}^2}} - \frac{1}{R_C}\right) \delta v_C - \frac{1}{C \overline{v_C}} \delta P_{CPL}
   \end{cases}
+\end{equation}
 $$
+
+<br>
