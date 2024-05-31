@@ -1,6 +1,6 @@
 # Trabalho Final de Curso
 
-## Avaliação de Estratégias de ETC para Microredes CC
+## Avaliação de Estratégias de ETC para Microrredes CC
 
 **Autor:** Andevaldo da Encarnação Vitório <br>
 **Orientador:** Iury Valente de Bessa <br>
@@ -10,7 +10,7 @@
 
 ## Resumo
 
-Este repositório contém o trabalho final de curso intitulado "Avaliação de Estratégias de ETC para Microredes CC".
+Este repositório contém o trabalho final de curso intitulado "Avaliação de Estratégias de ETC para Microrredes CC".
 
 ## Estrutura do Repositório
 
