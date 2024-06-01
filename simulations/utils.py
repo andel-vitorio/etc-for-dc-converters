@@ -235,3 +235,13 @@ def create_etm_results_figures(
         path + '/' + fig_prefix + '_eta.eps',
         format='eps', bbox_inches='tight')
     plt.close()
+
+
+def get_settling_time(signal, timepts):
+  final_value = signal[-1]
+  limit = 0.02 * final_value
+
+  for i in range(len(signal) - 1, -1, -1):
+    if abs(signal[i] - final_value) >= limit:
+      return timepts[i]
+  return timepts[0]

@@ -1,7 +1,76 @@
 import numpy as np
+import cvxpy as cp
 import control as ct
 
 from utils import generate_square_signal
+
+
+def get_etm_parameters(Asys, Bsys, ρ=0.5):
+  A = cp.Parameter((2, 2), value=Asys)
+  BU = cp.Parameter((2, 1), value=Bsys)
+  I = cp.Parameter((2, 2), name='I', value=np.identity(2))
+
+  Ξ_TIL = cp.Variable((2, 2), name='Ξ_TIL', PSD=True)
+  Ψ_TIL = cp.Variable((2, 2), name='Ψ_TIL', PSD=True)
+  X = cp.Variable((2, 2), name='X', PSD=True)
+  K_TIL = cp.Variable((1, 2), name='K_TIL')
+
+  obj = cp.Minimize(cp.trace(ρ * Ξ_TIL + (1 - ρ) * Ψ_TIL))
+
+  M11 = A @ X + BU @ K_TIL + X @ A.T + K_TIL.T @ BU.T
+  M12 = BU @ K_TIL
+  M13 = X
+
+  M21 = K_TIL.T @ BU.T
+  M22 = -Ξ_TIL
+  M23 = np.zeros(shape=(2, 2))
+
+  M31 = X
+  M32 = np.zeros(shape=(2, 2))
+  M33 = -Ψ_TIL
+
+  M = cp.bmat([[M11, M12, M13],
+               [M21, M22, M23],
+               [M31, M32, M33]])
+
+  constraints = [M << 0]
+  constraints += [1e-9 * np.eye(2) <= Ξ_TIL]
+  constraints += [Ξ_TIL <= 1e9 * np.eye(2)]
+  constraints += [1e-9 * np.eye(2) <= Ψ_TIL]
+  constraints += [Ψ_TIL <= 1e9 * np.eye(2)]
+
+  prob = cp.Problem(obj, constraints)
+  prob.solve(solver=cp.MOSEK, verbose=False)
+
+  K = None
+  Ξ = None
+  Ψ = None
+
+  if prob.status not in ["infeasible", "unbounded"]:
+    # print("Optimal value: %s\n" % prob.value)
+    # for variable in prob.variables():
+      # if len(variable.shape) == 2:
+      #   show_matrix(variable.name(), variable.value)
+      # else:
+      #   print(variable.name(), '=', variable.value, '\n')
+
+      # Compute the inverse of X and use it to calculate Ξ and K
+    X_INV = np.linalg.inv(X.value)
+    Ξ = X_INV @ Ξ_TIL.value @ X_INV
+
+    _K = K_TIL @ X_INV
+    K = _K.value
+
+    # utils.show_matrix('K', K)
+
+    Ψ = np.linalg.inv(Ψ_TIL.value)
+
+    # utils.show_matrix('Ξ', Ξ)
+    # utils.show_matrix('Ψ', Ψ)
+  else:
+    print('The problem is not feasible')
+
+  return [K, Ξ, Ψ]
 
 
 class StaticETM:
