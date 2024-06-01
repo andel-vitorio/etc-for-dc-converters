@@ -1,0 +1,38 @@
+{
+  "scenario-1": {
+    "ignore": true,
+    "tag": "stable_constant_pcpl",
+    "end_time_simulation": 0.1,
+    "initial_states_factor": [1.5, 0.13],
+    "pcpl_signal_data": [{ "t": 0, "pcpl": 50 }],
+    "circuit_params": {
+      "input_voltage": 48,
+      "inductor_winding_resistance": 0.1,
+      "constant_resistance_load": 10,
+      "inductance": 1e-3,
+      "capacitance": 2.2e-3
+    },
+    "desired_values": {
+      "capacitor_voltage": 28,
+      "pcpl_power": 50
+    }
+  },
+  "scenario-2": {
+    "ignore": false,
+    "tag": "unstable_constant_pcpl",
+    "end_time_simulation": 0.1,
+    "initial_states_factor": [0.9, 0.9],
+    "pcpl_signal_data": [{ "t": 0, "pcpl": 250 }],
+    "circuit_params": {
+      "input_voltage": 48,
+      "inductor_winding_resistance": 0.1,
+      "constant_resistance_load": 20,
+      "inductance": 1e-3,
+      "capacitance": 2.2e-3
+    },
+    "desired_values": {
+      "capacitor_voltage": 28,
+      "pcpl_power": 250
+    }
+  }
+}
