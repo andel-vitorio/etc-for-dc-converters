@@ -20,7 +20,7 @@ The repository is organized into three main directories, each containing files r
 
 3. **/simulations**: It contains the simulation files that were executed during the development of the project. These files include configuration scripts, simulation parameters and results obtained from the simulations.
 
-## Conteúdo dos Diretórios
+## Directory content
 
 ### /assets
 
