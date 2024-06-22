@@ -1,0 +1,60 @@
+\section*{Takagi-Sugeno Fuzzy Model}
+
+The design procedure begins with representing a given non-linear plant by the Takagi-Sugeno fuzzy model. This model is characterized by fuzzy IF-THEN rules which describe local linear input-output relations of a non-linear system. The TS Fuzzy model expresses the local dynamics of each fuzzy rule using a linear system model, while the global model is achieved by combining these linear system models 
+
+The $i$-th fuzzy rules for Continuous Fuzzy Systems (CFS) are of the following forms:
+
+\begin{enumerate}
+  \item[] \textit{\textbf{Model Rule i:}}
+  \begin{itemize}
+      \item[] \textbf{IF} $z_1(t) \txt{is} M_{i1} \txt{and} \dots \txt{and} z_p(t) \txt{is} M_{ip}$
+      \item[] \textbf{THEN} $\begin{cases}
+        \dot x = A_i x(t) + B_i u(t) \\
+        y = C_i x,
+      \end{cases}, \hspace{12pt} i = 1, 2, \dots, r.$
+  \end{itemize}
+\end{enumerate}
+
+Here, $M_{ij}$ is the fuzzy set and $r$ is the number of model rules; $x(t) \in \mathbb{R}^n$ is the state vector, $u(t) \in \mathbb{R}^m$ is the input vector, $y(y) \in \mathbb{R}^q$ is the output vector, $A_i \in \mathbb{R}^{n\times n}$, $B_i \in \mathbb{R}^{n\times m}$ and $C_i \in \mathbb{R}^{q\times n}$; $z_i(t), \dots, z_p(t)$ are known premise variables which may be functions of the state variables, external disturbances, and/or time.
+
+Given a pair of $(x(t), u(t))$, the final outputs of the CFS are inferred as follows:
+
+\begin{equation}
+  \dot x = \frac{\sum\limits_{i=1}^{r} w_i(z(t))\{A_i x(t) + B_i u(t)\}}
+  {\sum\limits_{i=1}^{r} w_i(z(t))} =
+  \sum\limits_{i=1}^{r} h_i(z(t))\{A_i x(t) + B_i u(t)\}
+\end{equation}
+
+\begin{equation}
+  y(t) = \frac{\sum\limits_{i=1}^{r} w_i(z(t)) C_i x(t)}
+  {\sum\limits_{i=1}^{r} w_i(z(t))} =
+  \sum\limits_{i=1}^{r} h_i(z(t))C_i x(t)
+\end{equation}
+
+where $z(t) = \left[z_1(t), z_2(t), \dots, z_p(t)\right]$, 
+
+\begin{equation}
+  w_i(z(t)) = \prod\limits_{j=1}^{p} M_{ij}(z_j(t)), \txt{and}
+\end{equation}
+
+\begin{equation}
+  h_i(z(t)) =  \frac{w_i(z(t))}{\sum\limits_{j=1}^{r} w_{i}(z(t))},
+\end{equation}
+
+for all time $t$. The term $M_{ij}(z(t))$ is the grade of membership of $z_j(t)$ in $M_{ij}$. Since,
+
+\begin{equation}
+  \begin{cases}
+    \sum\limits_{i=1}^{r} w_i(z(t)) > 0, \\
+    w_i(z(t)) \geq 0, \hspace*{12pt} i=1, 2, \dots, r,
+  \end{cases}
+\end{equation}
+
+we have,
+
+\begin{equation}
+  \begin{cases}
+    \sum\limits_{i=1}^{r} h_i(z(t)) > 0, \\
+    h_i(z(t)) \geq 0, \hspace*{12pt} i=1, 2, \dots, r,
+  \end{cases}
+\end{equation}

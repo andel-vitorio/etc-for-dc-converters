@@ -1,0 +1,45 @@
+\documentclass{article} 
+
+\usepackage{babel}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{bm}
+\usepackage{float}
+\usepackage[margin=2cm]{geometry}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+\usepackage{steinmetz}
+\usepackage{amssymb}
+
+\newcommand{\phasor}[2]{%
+  #1 \, \phase{\, #2^\circ} \,
+}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\txt}[1]{\ensuremath{\ \mathrm{#1}\ }}
+
+% \newcommand{\phasor}[2]{%
+%   #1 \, \text{\phase{\, \ang{#2}}} \,
+% }
+
+\newcommand{\nle}{%
+  \notag \\[8pt]
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+
+\title{Construction of DC-DC Converters Fuzzy Models} 
+\author{Andevaldo da Encarnação Vitório} 
+\date{\today}
+% \date{}
+
+\begin{document}
+
+\maketitle
+
+\input{sections/ts-fuzzy-model.tex}
+\input{sections/buck-converter-model}
+
+\end{document}
