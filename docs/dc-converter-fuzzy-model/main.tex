@@ -1,4 +1,8 @@
-\documentclass{article} 
+\documentclass[
+			   a4paper,
+			   oneside, 
+			  %  12pt     
+			   ]{paper} 
 
 \usepackage{babel}
 \usepackage{enumitem}
@@ -11,6 +15,18 @@
 \usepackage{siunitx}
 \usepackage{steinmetz}
 \usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{amsfonts}
+\usepackage{ae}
+
+\usepackage[pdftex,
+			% backref,
+			linktocpage = false,
+			colorlinks  = true,
+			linkcolor   = black,
+			anchorcolor = blue,
+			citecolor   = blue,
+			urlcolor    = blue]{hyperref}
 
 \newcommand{\phasor}[2]{%
   #1 \, \phase{\, #2^\circ} \,
@@ -18,10 +34,17 @@
 
 \newcommand{\ds}{\displaystyle}
 \newcommand{\txt}[1]{\ensuremath{\ \mathrm{#1}\ }}
+% \newcommand{\rm}[1]{\ensuremath{\ \mathrm{#1}\ }}
 
 % \newcommand{\phasor}[2]{%
 %   #1 \, \text{\phase{\, \ang{#2}}} \,
 % }
+
+\everymath{\displaystyle}
+
+% \makeatletter
+% \patchcmd{\env@cases}{1.2}{1.75}{}{}
+% \makeatother
 
 \newcommand{\nle}{%
   \notag \\[8pt]
@@ -29,6 +52,7 @@
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{\baselineskip}
+\setstretch{1.5}
 
 \title{Construction of DC-DC Converters Fuzzy Models} 
 \author{Andevaldo da Encarnação Vitório} 
@@ -40,6 +64,6 @@
 \maketitle
 
 \input{sections/ts-fuzzy-model.tex}
-\input{sections/buck-converter-model}
+\input{sections/buck-converter-ts-model}
 
 \end{document}
