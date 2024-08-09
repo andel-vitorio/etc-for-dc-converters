@@ -1,0 +1,115 @@
+\documentclass[
+  a4paper,
+  oneside,
+  % 12pt
+]{report}
+
+% Configura as margens das páginas
+\usepackage[
+  top    = 3cm,
+  bottom = 2.25cm,
+  left   = 2cm,
+  right  = 2cm
+]{geometry}
+
+\usepackage{babel}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{bm}
+\usepackage{float}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+\usepackage{steinmetz}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{xcolor}
+\usepackage{fancyhdr} % Para cabeçalhos e rodapés personalizados
+
+% Possibilita hiperlinks no texto
+\usepackage[pdftex,
+  % backref,
+  linktocpage = false,
+  colorlinks  = true,
+  linkcolor   = black,
+  anchorcolor = blue,
+  citecolor   = blue,
+  urlcolor    = blue
+]{hyperref}
+
+
+% Configuração do fancyhdr
+\pagestyle{fancy} % Estilo de página fancy
+\fancyhf{} % Limpa todos os cabeçalhos e rodapés atuais
+\renewcommand{\headrulewidth}{0.4pt} % Espessura da linha do cabeçalho
+\renewcommand{\footrulewidth}{0.4pt} % Espessura da linha do rodapé
+
+% Cabeçalho (header)
+\fancyhead[L]{\leftmark} % Coloca o nome da seção atual à esquerda
+\fancyhead[R]{\thepage} % Número da página à direita
+
+% Rodapé (footer)
+\fancyfoot[L]{} % Texto esquerdo no rodapé
+\fancyfoot[R]{} % Texto direito no rodapé
+
+% Configuração do pacote listings
+\renewcommand{\lstlistingname}{Código}
+\lstset{
+  language=Python,
+  tabsize=2,
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bfseries\color{blue!40!black},
+  commentstyle=\color{gray}\itshape,
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true,
+  captionpos=b,
+  xrightmargin=0pt,
+  xleftmargin=15pt,
+  literate={á}{{\'a}}1 {à}{{\`a}}1 {â}{{\^a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1 {í}{{\'i}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1 {õ}{{\~o}}1 {ó}{{\'o}}1 {ô}{{\^o}}1 {ú}{{\'u}}1 {δ}{{\ensuremath{\delta}}}1 {Ξ}{{\ensuremath{\Xi}}}1 {Ψ}{{\ensuremath{\Psi}}}1 {Γ}{{\ensuremath{\Gamma}}}1 {λ}{{\ensuremath{\lambda}}}1 {θ}{{\ensuremath{\theta}}}1 {┌}{{\char192}}1
+  {│}{{\char179}}1
+  {┐}{{\char191}}1
+  {└}{{\char218}}1,
+}
+
+\setstretch{1.5} % Espaçamento de 1.5 entre linhas
+
+% Comandos personalizados
+\newcommand{\phasor}[2]{#1 \,\phase{\,#2^\circ}} % Comando para fasor
+\newcommand{\txt}[1]{\;\mathrm{#1}} % Comando para texto em modo matemático
+
+\NewDocumentCommand{\voltage}{m o}{%
+  \IfValueTF{#2}
+    {#1 \,\, \text{#2V}}
+    {#1 \,\, \text{V}}%
+}
+
+\NewDocumentCommand{\apparentpower}{m o}{%
+  \IfValueTF{#2}
+    {#1 \,\, \text{#2VA}}
+    {#1 \,\, \text{kVA}}%
+}
+
+% Contador para exercícios
+\newcounter{exercise}
+\newcommand{\exercise}{%
+  \stepcounter{exercise}
+  \section*{Exercício \arabic{exercise}}
+}
+
+% Ambiente de resolução
+\setlength{\parindent}{0pt} % Remover indentação dos parágrafos
+
+\everymath{\displaystyle}
+
+\begin{document}
+
+% \input{pre-textual/cover.tex} % Capa do documento
+\input{textual/ts-fuzzy-model.tex}
+\input{textual/buck-converter-ts-model.tex}
+\input{textual/etc.tex}
+
+\end{document}
