@@ -1,0 +1,224 @@
+\chapter{Event-based Control for DC-DC Converters}
+
+\section{Problem formulation}
+
+Dynamic system:
+\begin{equation}
+  \dot x = \sum\limits_{p\in \mathbb{B}^n} h_p(z(t))
+  \left\{A_p x(t) + B_p u(t) - B_p \psi(u(t)) + E_p w(t)\right\}
+\end{equation}
+\begin{gather}
+  h_p(z(t)) = \prod\limits_{k=1}^n M_k^{b_k} (z_k(t)) \\
+  \begin{align}
+    A_p & = A(z^p) & B_p & = B(z^p) & E_p & = E(z^p)
+  \end{align}
+\end{gather}
+
+Control law:
+\begin{equation}
+  u(t) = K(\hat x) \hat x(t) + L(\hat x) \hat w(t) \Rightarrow u(t) =  \sum\limits_{p\in \mathbb{B}^n} h_p(z(t))
+  \left\{K_p \hat x(t)+ L_p \hat w(t)\right\}
+\end{equation}
+
+Consider a vector \( v \in \mathbb{R}^{n_u} \) such that the following set \(\mathcal{S}\) can be defined:
+\begin{equation}
+  \mathcal{S} = \left\{ u, v \in \mathbb{R}^{n_u} : |u_i - v_i| \leq {u_0}_i,\; i = 1, \dots, n_u \right\}
+\end{equation}
+
+If \( u \) and \( v \in \mathcal{S} \), then the relation
+\begin{equation}
+  \psi(u)^{\text{T}} T \left[\psi(u) - v\right] \leq 0
+\end{equation}
+
+is satisfied for any diagonal and positive definite matrix \( T \in \mathbb{R}^{n_u \times n_u} \).
+\begin{equation}
+  v = G(\hat x) x(t) = \sum\limits_{p\in \mathbb{B}^n} h_p(z(t))\left\{G_p \hat x(t)\right\}
+\end{equation}
+If $x \in \mathcal{S}$, such that
+\begin{gather}
+  \mathcal{S} = \left\{ x \in \mathbb{R}^{n} : | K(\hat x) \hat x(t) + L(\hat x) \hat w(t) - G(\hat x) \hat x(t)| \leq {u_0}_i,\; i = 1, \dots, n_u \right\} \\
+  \mathcal{S} = \left\{ x \in \mathbb{R}^{n} : | \left[K(\hat x) - G(\hat x)\right] \hat x(t) + L(\hat x) \hat w(t)| \leq {u_0}_i,\; i = 1, \dots, n_u \right\} \\
+  \mathcal{S} = \left\{ x \in \mathbb{R}^{n} : \left| \sum\limits_{p\in \mathbb{B}^n} h_p(z(t))\left\{(K_p - G_p) \hat x(t) + L_p \hat w(t) \right\}\right| \leq {u_0}_i,\; i = 1, \dots, n_u \right\}
+\end{gather}
+then,
+\begin{equation}
+  \psi^\text{T}(K(\hat x) x(t) + L(\hat x) \hat w) T\left[\psi(K(\hat x) \hat x + L(\hat x) \hat w) - G(\hat x) \hat x\right] \leq 0
+\end{equation}
+
+\begin{equation}
+  \psi^\text{T}(u(t)) T\left[\psi(u(t)) - G(\hat x) \hat x\right] \leq 0
+\end{equation}
+
+\begin{equation}
+  \psi^\text{T}(u(t)) T \psi(u(t)) - \psi^\text{T}(u(t)) T G(x(t) + e_x(t)) \left[x(t) + e_x(t)\right] \leq 0
+\end{equation}
+
+\begin{multline}
+  \psi^\text{T}(u(t)) T \psi(u(t)) - \psi^\text{T}(u(t)) T G(x(t)) x(t) - \psi^\text{T}(u(t)) T G(x(t)) e_x(t) \\- \psi^\text{T}(u(t)) T G(e_x(t)) x(t) - \psi^\text{T}(u(t)) T G(e_x(t)) e_x(t)\leq 0
+\end{multline}
+
+\begin{multline}
+  \psi^\text{T}(u(t)) T \psi(u(t)) - \psi^\text{T}(u(t)) T G(x(t)) x(t) - \psi^\text{T}(u(t)) T G(x(t)) e_x(t) \\- \psi^\text{T}(u(t)) T \left[G(x(t) + e_x(t)) - G(x)\right] \left[x(t) + e_x(t)\right]\leq 0
+\end{multline}
+
+\begin{equation}
+  \psi^\text{T}(u(t)) T \psi(u(t)) - \psi^\text{T}(u(t)) T G(x(t)) x(t) - \psi^\text{T}(u(t)) T G(x(t)) e_x(t) - \psi^\text{T}(u(t)) TG(e_x(t)) \left[x(t) + e_x(t)\right] \leq 0
+\end{equation}
+
+\subsection{Sistema}
+
+Seja $e_x(t) = \hat x(t) - x(t)$ and $e_w(t) = \hat w(t) - w(t)$. Têm-se,
+\begin{gather}
+  \dot x = A(x) x(t) + B(x) u(t) - B \psi(u(t)) + E(x) w(t) \\
+  \dot x = A(x) x(t) + B(x) \left[K(\hat x) \hat x(t) + L(\hat x) \hat w(t)\right] - B \psi(u(t)) + E(x) w(t) \\
+  \dot x = A(x) x(t) + B(x) K(\hat x) \hat x(t) + B(x) L(\hat x) \hat w(t) - B \psi(u(t)) + E(x) w(t)
+\end{gather}
+\begin{multline}
+  \dot x = A(x) x(t) + B(x) K(\hat x(t)) \left[e_x(t) + x(t)\right] \\ + B(x) L(\hat x(t)) \left[e_w(t) + w(t)\right] - B \psi(u(t)) + E(x) w(t)
+\end{multline}
+\begin{multline}
+  \dot x = \left[A(x) + B(x) K(x(t)) \right] x(t) + B(x) K(x(t)) e_x(t) + B(x) K(e_x(t)) \left[e_x(t) + x(t)\right] \\ + \left[E(x) + B(x) L(x(t)) \right] w(t) + B(x) L(x(t)) e_w(t) + B(x) L(e_x(t)) \left[e_w(t) + w(t)\right] \\ - B \psi(u(t))
+\end{multline}
+
+ETM dinâmico:
+\begin{equation}
+  t_0 = 0, t_{k+1} = \inf \{t > t_k : \eta(t) + \theta \Gamma(x(t), e_x(t), e_w(t)) < 0 \}, \, \forall k \in \mathbb{N}.
+\end{equation}
+Função de ativação:
+\begin{equation}
+  \Gamma(x, e_x) = x^T(t) \Psi x(t) - e_x^T \Xi_x e_x - \zeta(x, e_x)
+\end{equation}
+onde,
+\begin{equation}
+  \zeta(x, e_x) = 2 x^T P\left[B(x) \left(K(x+e_x) - x\right)(x+e_x)\right]
+\end{equation}
+
+LMI de restrição,
+\begin{equation}
+  \begin{bmatrix}
+    \txt{\bf He}(A_i X + B_i \tilde K_j) + (1 - \beta) I & E_i X + B_i \tilde L_j & B_i \tilde K_j      & B_i \tilde L_j & -B_i X - \frac{1}{2} X TG_i X & X             \\
+    \star                                         & -(\mu - \alpha)I          & 0                   & 0              & 0                             & 0             \\
+    \star                                         & \star                     & -\tilde \Xi - \beta & 0              & -\frac{1}{2}XTG_iX           & 0             \\
+    \star                                         & \star                     & \star               & \alpha I       & 0                             & 0             \\
+    \star                                         & \star                     & \star               & \star          & \tilde T                      & 0             \\
+    \star                                         & \star                     & \star               & \star          & \star                         & - \tilde \Psi \\
+  \end{bmatrix} < 0
+\end{equation}
+
+Multiplicando por $diag(X^{-1}, X^{-1}, X^{-1}, X^{-1}, I)$, e fazendo as mudança de variáveis: $K_j = \tilde{K_j} X^{-1}$, $L_j = \tilde{L_j} X^{-1}$, $\Xi = X^{-1} \tilde \Xi X^{-1}$, $T = X^{-1} \tilde T X^{-1}$, $P =  X^{-1}$
+
+\begin{equation}
+  \begin{bmatrix}
+    \Omega & P \left[E(x) + B(x)L(x)\right] & PB(x)K(x)    & PB(x)L(x) & -PB(x) - \frac{1}{2}TG(x) & I             \\
+    \star  & -(\mu - \alpha)I               & 0            & 0         & 0                         & 0             \\
+    \star  & \star                          & -\Xi - \beta & 0         & -\frac{1}{2}TG(x)         & 0             \\
+    \star  & \star                          & \star        & \alpha I  & 0                         & 0             \\
+    \star  & \star                          & \star        & \star     & T                         & 0             \\
+    \star  & \star                          & \star        & \star     & \star                     & - \tilde \Psi \\
+  \end{bmatrix} < 0
+\end{equation}
+
+onde $\Omega = P \txt{\bf He}(A(x) + B(x)K(x)) + (1 - \beta) I$. Pelo complemento de Schur,
+\begin{equation}
+  \begin{bmatrix}
+    \Omega + \Psi & P \left[E(x) + B(x)L(x)\right] & PB(x)K(x)    & PB(x)L(x) & -PB(x) - \frac{1}{2}TG(x) \\
+    \star         & -(\mu - \alpha)I               & 0            & 0         & 0                         \\
+    \star         & \star                          & -\Xi - \beta & 0         & -\frac{1}{2}TG(x)         \\
+    \star         & \star                          & \star        & \alpha I  & 0                         \\
+    \star         & \star                          & \star        & \star     & T
+  \end{bmatrix} < 0
+\end{equation}
+
+Considerando $v = \begin{bmatrix} x^T(t) & w^T(t) & e_x^T(t) & e_w^T(t) & \psi(u)^T \end{bmatrix}$, pré e pós-multiplicando por $v$ e $v^T$, respectivamente, obtêm-se:
+\begin{multline}
+  2x^T(t)P\left\{\left[A(x) + B(x) K(x(t)) \right] x(t) + \left[E(x) + B(x) L(x(t)) \right] w(t)  + B(x) K(x(t)) e_x(t) + B(x) L(x(t)) e_w(t)  \right.
+  \\ \left. - B(x) \psi(u(t))\right\} - \psi^T(u(t))TG(x)x(t) + (1 - \beta) x^T(t)x(t) - (\mu - \alpha) w^T(t) w(t) + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t)
+  \\ - \beta e^T_x(t) e_x(t)+ \alpha e_w^T(t)e_w(t) + \psi^T(u(t))T\psi(u(t)) - \psi^T(u(t)) TG(x) e_x(t)< 0
+\end{multline}
+
+Onde $\alpha \in \mathbb{R}_{>0}$ é tal que:
+\begin{equation}
+  2x^TPB(x)L(e_x(t)) \left[w(t) + e_w(t)\right] \leq \alpha^{-1} \|x^T(t)PB(x)L(e_x)\|^2 + \alpha \|w(t) + e_w(t)\|^2
+\end{equation}
+\begin{equation}
+  2x^TPB(x)L(e_x(t)) \left[w(t) + e_w(t)\right] \leq \alpha^{-1} \|x^T(t)PB(x)L(e_x)\|^2 + \alpha \|w(t)\|^2 + \alpha \|w(t)\| \|e_w(t)\|+ \alpha\|e_w(t)\|^2
+\end{equation}
+\begin{equation}
+  - \alpha^{-1} \|x^T(t)PB(x)L(e_x)\|^2 - \alpha \|w(t)\|^2 - \alpha \|w(t)\| \|e_w(t)\| - \alpha\|e_w(t)\|^2 \leq - 2x^TPB(x)L(e_x(t)) \left[w(t) + e_w(t)\right]
+\end{equation}
+
+Assim,
+\begin{multline}
+  2x^T(t)P\left\{\left[A(x) + B(x) K(x(t)) \right] x(t) + \left[E(x) + B(x) L(x(t)) \right] w(t)  + B(x) K(x(t)) e_x(t) + B(x) L(x(t)) e_w(t)  \right.
+  \\ \left. - B(x) \psi(u(t))\right\} - \psi^T(u(t))TG(x)x(t) + (1 - \beta) x^T(t)x(t) - \mu w^T(t) w(t) + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t) - \beta e^T_x(t) e_x(t)
+  \\  + \psi^T(u(t))T\psi(u(t)) - \psi^T(u(t)) TG(x) e_x(t) < - \alpha w^T(t) w(t) - \alpha e_w^T(t)e_w(t)
+\end{multline}
+\begin{multline}
+  2x^T(t)P\left\{\left[A(x) + B(x) K(x(t)) \right] x(t) + \left[E(x) + B(x) L(x(t)) \right] w(t)  + B(x) K(x(t)) e_x(t) + B(x) L(x(t)) e_w(t)  \right.
+  \\ \left. - B(x) \psi(u(t))\right\} - \psi^T(u(t))TG(x)x(t) + (1 - \beta) x^T(t)x(t) - \mu w^T(t) w(t) + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t) - \beta e^T_x(t) e_x(t)
+  \\ + \psi^T(u(t))T\psi(u(t)) - \psi^T(u(t)) TG(x) e_x(t)  - \alpha \|w(t)\| \|e_w(t)\| - \alpha^{-1} \|x^T(t)PB(x)L(e_x)\|^2
+  \\ < - \alpha w^T(t) w(t) - \alpha e_w^T(t)e_w(t)  - \alpha \|w(t)\| \|e_w(t)\| - \alpha^{-1} \|x^T(t)PB(x)L(e_x)\|^2
+\end{multline}
+\begin{multline}
+  2x^T(t)P\left\{\left[A(x) + B(x) K(x(t)) \right] x(t) + \left[E(x) + B(x) L(x(t)) \right] w(t)  + B(x) K(x(t)) e_x(t) + B(x) L(x(t)) e_w(t)  \right.
+  \\ \left. - B(x) \psi(u(t))\right\} - \psi^T(u(t))TG(x)x(t) + (1 - \beta) x^T(t)x(t) - \mu w^T(t) w(t) + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t) - \beta e^T_x(t) e_x(t)
+  \\ + \psi^T(u(t))T\psi(u(t)) - \psi^T(u(t)) TG(x) e_x(t)  - \alpha \|w(t)\| \|e_w(t)\| - \alpha^{-1} \|x^T(t)PB(x)L(e_x)\|^2
+  \\ < - 2x^TPB(x)L(e_x(t)) \left[w(t) + e_w(t)\right]
+\end{multline}
+\begin{multline}
+  2x^T(t)P\left\{\left[A(x) + B(x) K(x(t)) \right] x(t) + \left[E(x) + B(x) L(x(t)) \right] w(t)  + B(x) K(x(t)) e_x(t) + B(x) L(x(t)) e_w(t)  \right.
+  \\ \left. + B(x)L(e_x(t)) \left[w(t) + e_w(t)\right] - B(x) \psi(u(t))\right\} - \psi^T(u(t))TG(x)x(t) + (1 - \beta) x^T(t)x(t) - \mu w^T(t) w(t) \\ + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t) - \beta e^T_x(t) e_x(t) + \psi^T(u(t))T\psi(u(t)) - \psi^T(u(t)) TG(x) e_x(t)  - \alpha \|w(t)\| \|e_w(t)\| \\ - \alpha^{-1} \|x^T(t)PB(x)L(e_x)\|^2  < 0
+\end{multline}
+\begin{multline}
+  2x^T(t)P\left\{\left[A(x) + B(x) K(x(t)) \right] x(t) + \left[E(x) + B(x) L(x(t)) \right] w(t)  + B(x) K(x(t)) e_x(t) + B(x) L(x(t)) e_w(t)  \right.
+  \\ \left. + B(x)L(e_x(t)) \left[w(t) + e_w(t)\right] - B(x) \psi(u(t))\right\} - \psi^T(u(t))TG(x)x(t) + (1 - \beta) x^T(t)x(t) - \mu w^T(t) w(t) \\ + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t) - \beta e^T_x(t) e_x(t) + \psi^T(u(t))T\psi(u(t)) - \psi^T(u(t)) TG(x) e_x(t)  < 0
+\end{multline}
+Somando $\zeta(x(t), e_x(t))$, têm-se:
+\begin{multline}
+  2x^T(t)P\dot x(t) - \psi^T(u(t))TG(x)x(t) + (1 - \beta) x^T(t)x(t) - \mu w^T(t) w(t) \\ + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t) - \beta e^T_x(t) e_x(t) + \psi^T(u(t))T\psi(u(t)) - \psi^T(u(t)) TG(x) e_x(t)  < 0
+\end{multline}
+
+De forma semelhante, $\beta \in \mathbb{R}_{>0}$ é tal que,
+\begin{equation}
+  \psi^T(u(t))G(e_x(t)) \left[x(t) + e_x(t)\right] \leq \beta^{-1} \|\psi(u(t))G(e_x(t))\|^2 + \beta \|x(t) + e_x(t)\|^2
+\end{equation}
+\begin{equation}
+  \psi^T(u(t))G(e_x(t)) \left[x(t) + e_x(t)\right] - \beta^{-1} \|\psi(u(t))G(e_x(t))\|^2 - \beta \|x(t)\|^2 - \beta \|x(t)\|\|e_x(t)\| - \beta \|e_x(t)\|^2 \leq 0
+\end{equation}
+
+Logo,
+\begin{multline}
+  2x^T(t)P\dot x(t) + x^T(t)x(t) - \mu w^T(t) w(t) + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t) - \beta x^T(t) x(t)  + \psi^T(u(t))T\psi(u(t))  \\ - \psi^T(u(t))TG(x)x(t) - \psi^T(u(t)) TG(x) e_x(t) - \psi^T(u(t))G(e_x(t)) \left[x(t) + e_x(t)\right]  \\
+  + \psi^T(u(t))G(e_x(t)) \left[x(t) + e_x(t)\right] - \beta e^T_x(t) e_x(t) < 0
+\end{multline}
+
+De, , % referir a equação com da saturação
+\begin{multline}
+  2x^T(t)P\dot x(t) + x^T(t)x(t) - \mu w^T(t) w(t) + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t) \\
+  + \psi^T(u(t))G(e_x(t)) \left[x(t) + e_x(t)\right]  - \beta x^T(t) x(t) - \beta e^T_x(t) e_x(t) < 0
+\end{multline}
+\begin{multline}
+  2x^T(t)P\dot x(t) + x^T(t)x(t) - \mu w^T(t) w(t) + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t)
+  + \psi^T(u(t))G(e_x(t)) \left[x(t) + e_x(t)\right]  \\ - \beta x^T(t) x(t) - \beta e^T_x(t) e_x(t)  - \beta \|x(t)\|\|e_x(t)\| - \beta^{-1} \|\psi(u(t))G(e_x(t))\|^2  < 0
+\end{multline}
+\begin{equation}
+  2x^T(t)P\dot x(t) + x^T(t)x(t) - \mu w^T(t) w(t) + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t) < 0
+\end{equation}
+
+Como $\lambda \eta(t) > 0$, então:
+\begin{equation}
+  2x^T(t)P\dot x(t) + x^T(t)x(t) - \mu w^T(t) w(t) + x^T(t) \Psi x(t) - e_x^T(t) \Xi e_x(t) - \lambda \eta(t) < 0
+\end{equation}
+
+Logo,
+\begin{equation}
+  \dot x^T(t)Px(t) + x^T(t)P\dot x(t) + \dot \eta(t) + x^T(t)x(t) - \mu w^T(t)w(t) < 0
+\end{equation}
+\begin{equation}
+  \dot x^T(t)Px(t) + x^T(t)P\dot x(t) + \dot \eta(t) < 0
+\end{equation}
+\begin{equation}
+  \dot W(x, \eta) < 0
+\end{equation}
+
+Portanto, a origem do sistema em malha fechada sob o ETM dinâmico é estável.

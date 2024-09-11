@@ -14,22 +14,15 @@ This final course project deals with the development and implementation of event
 
 The repository is organized into three main directories, each containing files relevant to different aspects of the project:
 
-<<<<<<< HEAD
 - **`simulator/`**: Contém a simulação de uma microrrede de corrente contínua.
 - **`docs/`**: Contém as documentações do projeto.
   - _**Mathematical Modeling of a Microgrid**_: Detalhes da modelagem matemática da microrrede
-=======
-1. **/assets**: This directory contains the main images used in notebooks. The images are used to illustrate theoretical concepts, simulation results and converter performance graphs.
->>>>>>> development
 
 2. **/notebooks**: This directory contains the Python notebooks that were used throughout the project. These notebooks contain the codes and their descriptions needed to carry out the simulations, as well as analysis and visualization of the data obtained.
 
 3. **/simulations**: It contains the simulation files that were executed during the development of the project. These files include configuration scripts, simulation parameters and results obtained from the simulations.
 
-<<<<<<< HEAD
-Os modelos matemáticos obtidos neste documento são fundamentais para o desenvolvimento do simulador e a avaliação das estratégias de ETC (Controle Acionado por Evento) para microrredes de corrente contínua.
-=======
-## Conteúdo dos Diretórios
+## Directory content
 
 ### /assets
 

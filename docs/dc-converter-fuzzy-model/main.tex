@@ -1,8 +1,23 @@
 \documentclass[
+<<<<<<< HEAD
 			   a4paper,
 			   oneside, 
 			  %  12pt     
 			   ]{paper} 
+=======
+  a4paper,
+  oneside,
+  % 12pt
+]{report}
+
+% Configura as margens das páginas
+\usepackage[
+  top    = 3cm,
+  bottom = 2.25cm,
+  left   = 2cm,
+  right  = 2cm
+]{geometry}
+>>>>>>> development
 
 \usepackage{babel}
 \usepackage{enumitem}
@@ -10,12 +25,12 @@
 \usepackage{booktabs}
 \usepackage{bm}
 \usepackage{float}
-\usepackage[margin=2cm]{geometry}
 \usepackage{circuitikz}
 \usepackage{siunitx}
 \usepackage{steinmetz}
 \usepackage{amssymb}
 \usepackage{setspace}
+<<<<<<< HEAD
 \usepackage{amsfonts}
 \usepackage{ae}
 
@@ -27,19 +42,75 @@
 			anchorcolor = blue,
 			citecolor   = blue,
 			urlcolor    = blue]{hyperref}
+=======
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{xcolor}
+\usepackage{fancyhdr} % Para cabeçalhos e rodapés personalizados
+\usepackage{ebgaramond}
+>>>>>>> development
 
-\newcommand{\phasor}[2]{%
-  #1 \, \phase{\, #2^\circ} \,
+
+% Possibilita hiperlinks no texto
+\usepackage[pdftex,
+  % backref,
+  linktocpage = false,
+  colorlinks  = true,
+  linkcolor   = black,
+  anchorcolor = blue,
+  citecolor   = blue,
+  urlcolor    = blue
+]{hyperref}
+
+
+% Configuração do fancyhdr
+\pagestyle{fancy} % Estilo de página fancy
+\fancyhf{} % Limpa todos os cabeçalhos e rodapés atuais
+\renewcommand{\headrulewidth}{0.4pt} % Espessura da linha do cabeçalho
+\renewcommand{\footrulewidth}{0.4pt} % Espessura da linha do rodapé
+
+% Cabeçalho (header)
+\fancyhead[L]{\leftmark} % Coloca o nome da seção atual à esquerda
+\fancyhead[R]{\thepage} % Número da página à direita
+
+% Rodapé (footer)
+\fancyfoot[L]{} % Texto esquerdo no rodapé
+\fancyfoot[R]{} % Texto direito no rodapé
+
+% Configuração do pacote listings
+\renewcommand{\lstlistingname}{Código}
+\lstset{
+  language=Python,
+  tabsize=2,
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bfseries\color{blue!40!black},
+  commentstyle=\color{gray}\itshape,
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true,
+  captionpos=b,
+  xrightmargin=0pt,
+  xleftmargin=15pt,
+  literate={á}{{\'a}}1 {à}{{\`a}}1 {â}{{\^a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1 {í}{{\'i}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1 {õ}{{\~o}}1 {ó}{{\'o}}1 {ô}{{\^o}}1 {ú}{{\'u}}1 {δ}{{\ensuremath{\delta}}}1 {Ξ}{{\ensuremath{\Xi}}}1 {Ψ}{{\ensuremath{\Psi}}}1 {Γ}{{\ensuremath{\Gamma}}}1 {λ}{{\ensuremath{\lambda}}}1 {θ}{{\ensuremath{\theta}}}1 {┌}{{\char192}}1
+  {│}{{\char179}}1
+  {┐}{{\char191}}1
+  {└}{{\char218}}1,
 }
 
+<<<<<<< HEAD
 \newcommand{\ds}{\displaystyle}
 \newcommand{\txt}[1]{\ensuremath{\ \mathrm{#1}\ }}
 % \newcommand{\rm}[1]{\ensuremath{\ \mathrm{#1}\ }}
+=======
+\setstretch{1.5} % Espaçamento de 1.5 entre linhas
+>>>>>>> development
 
-% \newcommand{\phasor}[2]{%
-%   #1 \, \text{\phase{\, \ang{#2}}} \,
-% }
+% Comandos personalizados
+\newcommand{\phasor}[2]{#1 \,\phase{\,#2^\circ}} % Comando para fasor
+\newcommand{\txt}[1]{\;\mathrm{#1}} % Comando para texto em modo matemático
 
+<<<<<<< HEAD
 \everymath{\displaystyle}
 
 % \makeatletter
@@ -53,17 +124,44 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{\baselineskip}
 \setstretch{1.5}
+=======
+\NewDocumentCommand{\voltage}{m o}{%
+  \IfValueTF{#2}
+    {#1 \,\, \text{#2V}}
+    {#1 \,\, \text{V}}%
+}
 
-\title{Construction of DC-DC Converters Fuzzy Models} 
-\author{Andevaldo da Encarnação Vitório} 
-\date{\today}
-% \date{}
+\NewDocumentCommand{\apparentpower}{m o}{%
+  \IfValueTF{#2}
+    {#1 \,\, \text{#2VA}}
+    {#1 \,\, \text{kVA}}%
+}
+>>>>>>> development
+
+% Contador para exercícios
+\newcounter{exercise}
+\newcommand{\exercise}{%
+  \stepcounter{exercise}
+  \section*{Exercício \arabic{exercise}}
+}
+
+% Ambiente de resolução
+\setlength{\parindent}{0pt} % Remover indentação dos parágrafos
+
+\everymath{\displaystyle}
 
 \begin{document}
 
+<<<<<<< HEAD
 \maketitle
 
 \input{sections/ts-fuzzy-model.tex}
 \input{sections/buck-converter-ts-model}
+=======
+% \input{pre-textual/cover.tex} % Capa do documento
+\input{textual/ts-fuzzy-model.tex}
+\input{textual/buck-converter-ts-model.tex}
+\input{textual/etc.tex}
+>>>>>>> development
 
 \end{document}
