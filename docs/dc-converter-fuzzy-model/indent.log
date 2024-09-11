@@ -1,12 +1,7 @@
 INFO:  latexindent version 3.23.5, 2024-01-01, a script to indent .tex files
        latexindent lives here: /usr/local/texlive/2023/texmf-dist/scripts/latexindent/
-<<<<<<< HEAD
-       Mon Jun 24 13:42:27 2024
-       Filename: /home/andel/Documentos/Mestrado/Projetos/etc-for-dc-converters/docs/dc-converter-fuzzy-model/sections/__latexindent_temp_buck-converter-ts-model.tex
-=======
-       Wed Jul 10 14:02:24 2024
-       Filename: /home/andel/Documentos/Mestrado/Projetos/etc-for-dc-converters/docs/dc-converter-fuzzy-model/textual/__latexindent_temp_etc.tex
->>>>>>> development
+       Tue Sep 10 22:31:19 2024
+       Filename: /home/andel/Documentos/Mestrado/Projetos/etc-for-dc-converters/docs/dc-converter-fuzzy-model/textual/__latexindent_temp_buck-converter-ts-model.tex
 INFO:  Processing switches:
        -y|--yaml: YAML settings specified via command line
        -c|--cruft: cruft directory
